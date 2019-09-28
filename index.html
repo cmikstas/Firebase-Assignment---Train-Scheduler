@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head class="h-100">
+    <meta charset="utf-8">
+    <title>Train Schedule</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/javascript.js"></script>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/style.css">
+</head>
+
+<body>
+    <header>
+
+        <nav class="flex rounded-b justify-between flex-wrap bg-blue-500 p-6 mx-20">
+            <div class="flex items-center flex-shrink-0 text-white">
+                <span class="font-semibold text-xl ">Train Scheduling </span>
+            </div>
+            <div class="block lg:hidden">
+                <!-- <button
+                    class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
+                    <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <title>Menu</title>
+                        <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+                    </svg>
+                </button> -->
+            </div>
+
+            <div>
+                <a href="../Firebase-Assignment---Train-Scheduler/index.html"
+                    class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-blue-500 hover:bg-white mt-4 lg:mt-0">Return
+                    to Portfolio</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="border-2 rounded border-blue-500 my-10 mx-20">
+            <p class="font-semibold flex w-full p-4 bg-gray-500 text-white">Current Train Schedule</p>
+            <table class="text-left w-full">
+                <thead class="flex text-black w-full">
+                    <tr class="flex w-full">
+                        <th class="p-4 w-1/5">Train Name</th>
+                        <th class="p-4 w-1/5">Destination</th>
+                        <th class="p-4 w-1/5">Frequency (min)</th>
+                        <th class="p-4 w-1/5">Next Arrival</th>
+                        <th class="p-4 w-1/5">Minutes Away</th>
+                    </tr>
+                </thead>
+                <tbody class="flex text-black w-full">
+
+                </tbody>
+            </table>
+        </div>
+        <div class="border-2 rounded border-blue-500 my-10 mx-20">
+            <p class="font-semibold flex w-full p-4 bg-gray-500 text-white">Add Train</p>
+            <form class="max-w-full ml-4 mt-4">
+                <div class="flex flex-wrap mb-4 pr-4">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                        for="grid-first-name">
+                        Train Name
+                    </label>
+                    <input
+                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-blue-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                        id="trainName" type="text">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                        for="grid-first-name">
+                        Destination
+                    </label>
+                    <input
+                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-blue-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                        id="destination" type="text">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                        for="grid-first-name">
+                        First Train Time (HH:mm - military time)
+                    </label>
+                    <input
+                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-blue-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                        id="firstTrainTime" type="text">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                        for="grid-first-name">
+                        Frequency (min)
+                    </label>
+                    <input
+                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-blue-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                        id="frequency" type="text">
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <footer class='w-full text-center border-t-2 border-grey p-4 pin-b bg-gray-200'>
+        <small>Copyright &copy</small>
+    </footer>
+
+</body>
+
+</html>
