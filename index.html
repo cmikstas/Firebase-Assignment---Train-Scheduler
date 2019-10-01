@@ -14,7 +14,7 @@
     <script type="text/javascript" src="assets/javascript.js"></script>
 </head>
 
-<body>
+<body class="bg-indigo-100">
     <header>
 
         <nav class="flex justify-between flex-wrap bg-blue-500 p-6">
@@ -39,64 +39,64 @@
         </nav>
     </header>
 
-    <div class="my-10 mx-20">
-        <div class="border-2 rounded border-blue-500">
-            <p class="font-semibold flex w-full p-4 bg-gray-500 text-white">Current Train Schedule</p>
-            <table class="m-4">
-                <thead>
-                    <tr>
-                        <th class="text-left w-1/5">Train Name</th>
-                        <th class="text-left w-1/5">Destination</th>
-                        <th class="text-left w-1/5">Frequency (min)</th>
-                        <th class="text-left w-1/5">Next Arrival</th>
-                        <th class="text-left w-1/5">Minutes Away</th>
-                        <th class="text-left w-1/5">Remove</th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody">
+    <div class="py-10 px-20">
+        <div class="bg-white">
+            <div class="border-2 rounded  border-blue-500">
+                <p class="font-semibold flex w-full p-4 bg-gray-500 text-white">Current Train Schedule</p>
+                <table class="m-4">
+                    <thead>
                         <tr>
-
+                            <th class="text-left w-1/5">Train Name</th>
+                            <th class="text-left w-1/5">Destination</th>
+                            <th class="text-left w-1/5">Frequency (min)</th>
+                            <th class="text-left w-1/5">Next Arrival</th>
+                            <th class="text-left w-1/5">Minutes Away</th>
+                            <th class="text-left w-1/5">Remove</th>
                         </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="border-2 rounded border-blue-500 my-10">
-            <p class="font-semibold flex w-full p-4 bg-gray-500 text-white">Add Train</p>
-            <form class="max-w-full ml-4 mt-4">
-                <div class="flex flex-wrap mb-4 pr-4">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                        for="grid-train">
-                        Train Name
-                    </label>
-                    <input
-                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-blue-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                        id="trainName" type="text">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                        for="grid-train">
-                        Destination
-                    </label>
-                    <input
-                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-blue-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                        id="destination" type="text">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                        for="grid-train">
-                        First Train Time (HH:mm - military time)
-                    </label>
-                    <input
-                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-blue-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                        id="firstTrainTime" type="text">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                        for="grid-train">
-                        Frequency (min)
-                    </label>
-                    <input
-                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-blue-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                        id="frequency" type="number">
-                    <button id="submit-btn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                        Submit
-                    </button>
-                </div>
-            </form>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
+            <div class="py-5 bg-indigo-100"></div>
+            <div class="border-2 rounded border-blue-500">
+                <p class="font-semibold flex w-full p-4 bg-gray-500 text-white">Add Train</p>
+                <form class="max-w-full ml-4 mt-4">
+                    <div class="flex flex-wrap mb-4 pr-4">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            for="grid-train">
+                            Train Name
+                        </label>
+                        <input
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-blue-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                            id="trainName" type="text">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            for="grid-train">
+                            Destination
+                        </label>
+                        <input
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-blue-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                            id="destination" type="text">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            for="grid-train">
+                            First Train Time (HH:mm - military time)
+                        </label>
+                        <input
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-blue-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                            id="firstTrainTime" type="text">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            for="grid-train">
+                            Frequency (min)
+                        </label>
+                        <input
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-blue-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                            id="frequency" type="number">
+                        <button id="submit-btn"
+                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
     <footer class='text-center text-white border-t-2 border-blue-500 p-4 pin-b bg-gray-500'>
