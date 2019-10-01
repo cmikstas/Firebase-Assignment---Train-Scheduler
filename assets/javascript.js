@@ -44,16 +44,16 @@ function submitBtn()
             return;  
         }
 
+        // error checking to ensure that "Destination" field isn't blank
         if (destination === "")
         {
             console.log("Field Cannot be Blank");
-            // changes border colors to let user know there is an error in the field
             $("#destination").removeClass("border-blue-500 bg-gray-200");
             $("#destination").addClass("border-red-500 bg-red-100");
             return; 
         }
 
-        // section to handles all error checking to make sure proper formatting is done in first train time field
+        // section to handles error checking to ensure proper number formatting
         var timeArray = firstTrain.split(":"); 
 
         // makes sure that train time is proper length
@@ -79,7 +79,7 @@ function submitBtn()
             return;
         }
 
-        // error checking to make sure proper number formatting is done in both fields
+        // error checking to ensure proper number formatting is done in both fields
         if (milHours > 23 || milHours < 0 || milMins > 59 || milMins < 0)
         {
             console.log("Number format incorrect");
@@ -91,7 +91,7 @@ function submitBtn()
         // turns frequency field into an integer
         var intFrequency = parseInt(frequency);
 
-        // error checking to make sure that value entered in frequency field is an integer
+        // error checking ensure sure that value entered in frequency field is an integer
         if (isNaN(intFrequency))
         {
             console.log("Not a number");
