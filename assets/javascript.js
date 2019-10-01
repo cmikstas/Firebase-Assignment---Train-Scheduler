@@ -18,35 +18,8 @@ var database = firebase.database();
 $( document ).ready(function()
 {
     submitBtn();
+
 });
-
-//code to store train info into firebase and add to train schedule div
-//database.ref().on("child_added", function(childSnapshot) {
-    //console.log(childSnapshot.val());
-  
-    // Store everything into a variable.
-    //var trainName = childSnapshot.val().train;
-    //var destination = childSnapshot.val().dest;
-    //var firstTrain = childSnapshot.val().first;
-    //var frequency = childSnapshot.val().freq;
-
-    // Employee Info
-    //console.log(trainName);
-    //console.log(destination);
-    //console.log(firstTrain);
-    //console.log(frequency);
-
-
-    //new row information
-    //var trainRow = $("<tr>").append(
-        //$("<td>").text(trainName),
-        //$("<td>").text(destination),
-        //$("<td>").text(empStartPretty),
-        //$("<td>").text(empMonths),
-        //$("<td>").text(frequency),
-        //$("<td>").text(empBilled)
-      //);
-//});
 
 // code for grabbing information from button click
 function submitBtn()
@@ -55,15 +28,30 @@ function submitBtn()
     {   
         event.preventDefault();
 
-        // resets border color in first train time field
-        $("#firstTrainTime").addClass("border-blue-500");
-        $("#firstTrainTime").addClass("bg-gray-200");
-
         // Grabs inputs from fields
         var trainName = $("#trainName").val().trim();
         var destination = $("#destination").val().trim();
         var firstTrain = $("#firstTrainTime").val().trim();
         var frequency = $("#frequency").val().trim();
+
+        // error checking to ensure that "Train Name" field isn't blank
+        if (trainName === "")
+        {
+            console.log("Field Cannot be Blank");
+            // changes border colors to let user know there is an error in the field
+            $("#trainName").removeClass("border-blue-500 bg-gray-200");
+            $("#trainName").addClass("border-red-500 bg-red-100");
+            return;  
+        }
+
+        if (destination === "")
+        {
+            console.log("Field Cannot be Blank");
+            // changes border colors to let user know there is an error in the field
+            $("#destination").removeClass("border-blue-500 bg-gray-200");
+            $("#destination").addClass("border-red-500 bg-red-100");
+            return; 
+        }
 
         // section to handles all error checking to make sure proper formatting is done in first train time field
         var timeArray = firstTrain.split(":"); 
@@ -72,26 +60,22 @@ function submitBtn()
         if (timeArray.length !== 2)
         {
             console.log("must have two #s in xx:xx format")
-            $("#firstTrainTime").removeClass("border-blue-500");
-            $("#firstTrainTime").removeClass("bg-gray-200");
-            $("#firstTrainTime").addClass("border-red-500");
-            $("#firstTrainTime").addClass("bg-red-100");
+            $("#firstTrainTime").removeClass("border-blue-500 bg-gray-200");
+            $("#firstTrainTime").addClass("border-red-500 bg-red-100");
             return;
         }
 
-        // variables with text information from field converted to integers
+        // variables with text information from "First Train Time" field converted to integers
         var milHours = parseInt(timeArray[0]);
         var milMins = parseInt(timeArray[1]);
 
-        // function to make sure that only integers are entered time fields
+        // error checking to make sure that only integers are entered in train time fields
         if (isNaN(milHours) || isNaN(milMins))
         {
             console.log("Not a number");
             // changes border colors to let user know there is an error in the field
-            $("#firstTrainTime").removeClass("border-blue-500");
-            $("#firstTrainTime").removeClass("bg-gray-200");
-            $("#firstTrainTime").addClass("border-red-500");
-            $("#firstTrainTime").addClass("bg-red-100");
+            $("#firstTrainTime").removeClass("border-blue-500 bg-gray-200");
+            $("#firstTrainTime").addClass("border-red-500 bg-red-100");
             return;
         }
 
@@ -99,10 +83,29 @@ function submitBtn()
         if (milHours > 23 || milHours < 0 || milMins > 59 || milMins < 0)
         {
             console.log("Number format incorrect");
-            $("#firstTrainTime").removeClass("border-blue-500");
-            $("#firstTrainTime").removeClass("bg-gray-200");
-            $("#firstTrainTime").addClass("border-red-500");
-            $("#firstTrainTime").addClass("bg-red-100");
+            $("#firstTrainTime").removeClass("border-blue-500 bg-gray-200");
+            $("#firstTrainTime").addClass("border-red-500 bg-red-100");
+            return;
+        }
+
+        // turns frequency field into an integer
+        var intFrequency = parseInt(frequency);
+
+        // error checking to make sure that value entered in frequency field is an integer
+        if (isNaN(intFrequency))
+        {
+            console.log("Not a number");
+            $("#frequency").removeClass("border-blue-500 bg-gray-200");
+            $("#frequency").addClass("border-red-500 bg-red-100");
+            return;
+        }
+
+        // error checking to ensure a correct integer is entered
+        if (intFrequency < 1)
+        {
+            console.log("Number format incorrect");
+            $("#frequency").removeClass("border-blue-500 bg-gray-200");
+            $("#frequency").addClass("border-red-500 bg-red-100");
             return;
         }
 
@@ -136,6 +139,17 @@ database.ref("trainAssignment").on("child_added", function(childSnapshot)
 {
     console.log(childSnapshot.val());
 
+    // resets border color in all user entry fields
+    $("#trainName").removeClass("border-red-500 bg-red-100");
+    $("#destination").removeClass("border-red-500 bg-red-100");
+    $("#firstTrainTime").removeClass("border-red-500 bg-red-100");
+    $("#frequency").removeClass("border-red-500 bg-red-100");
+
+    $("#trainName").addClass("border-blue-500 bg-gray-200");
+    $("#destination").addClass("border-blue-500 bg-gray-200");
+    $("#firstTrainTime").addClass("border-blue-500 bg-gray-200");
+    $("#frequency").addClass("border-blue-500 bg-gray-200");
+
     var childKey = childSnapshot.key;
 
     //store snapshot information into a variable
@@ -150,13 +164,8 @@ database.ref("trainAssignment").on("child_added", function(childSnapshot)
     console.log(firstTrain);
     console.log(frequency);
 
+    //variable that creates table row for blank table body div in html.
     var tableRow = $("<tr>").addClass("ml-4");
-
-        // Assumptions
-        //var tFrequency = 
-
-        // Time is 3:30 AM
-        //var firstTime = "03:30";
 
         // First Time (pushed back 1 year to make sure it comes before current time)
         var firstTimeConverted = moment(firstTrain, "HH:mm").subtract(1, "years");
@@ -182,11 +191,14 @@ database.ref("trainAssignment").on("child_added", function(childSnapshot)
         var nextTrain = moment().add(tMinutesTillTrain, "minutes");
         console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
     
+    // functionality that creates table data for table row
     var tdTrainName = $("<td>").text(trainName);
     var tdDestination = $("<td>").text(destination);
     var tdFrequency = $("<td>").text(frequency);
     var tdNextArrival = $("<td>").text(moment(nextTrain).format("hh:mm A"));
     var tdMinsAway = $("<td>").text(tMinutesTillTrain);
+   
+    // remove button code
     var removeButton = $("<button>");
     removeButton.text("Delete");
     removeButton.addClass("bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded");
@@ -201,6 +213,7 @@ database.ref("trainAssignment").on("child_added", function(childSnapshot)
 
     $("#tableBody").append(tableRow);
 
+    // function that does real time updating for "Next Arrival" and "Minutes Away" columns
     setInterval(function()
     {
         // Difference between the times
@@ -218,11 +231,10 @@ database.ref("trainAssignment").on("child_added", function(childSnapshot)
         tdNextArrival.text(moment(nextTrain).format("hh:mm A"));
         console.log(moment(nextTrain).format("hh:mm A"));
 
-        tdMinsAway.text(tMinutesTillTrain)  
-
-        
+        tdMinsAway.text(tMinutesTillTrain) 
     }, 1000);
 
+    // on click function that allows user to remove table row and also delete information from Firebase 
     removeButton.on("click", function (event)
     {
         tableRow.remove();
