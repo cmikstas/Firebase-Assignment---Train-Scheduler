@@ -8,6 +8,10 @@
     border-top: 2px solid ;
 }
 
+thead
+{
+    width: 100%
+}
 
 /* Sticky Footer Classes */
 .footer-all

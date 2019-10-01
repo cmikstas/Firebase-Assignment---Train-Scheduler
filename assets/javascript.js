@@ -116,7 +116,7 @@ function submitBtn()
         };
 
         // Uploads employee data to the database
-        database.ref().push(trainData);
+        database.ref("trainAssignment").push(trainData);
 
         // Logs everything to console
         console.log(trainData.train);
@@ -131,3 +131,103 @@ function submitBtn()
         $("#frequency").val("");
     });
 }
+
+database.ref("trainAssignment").on("child_added", function(childSnapshot)
+{
+    console.log(childSnapshot.val());
+
+    var childKey = childSnapshot.key;
+
+    //store snapshot information into a variable
+    var trainName = childSnapshot.val().train;
+    var destination = childSnapshot.val().dest;
+    var firstTrain = childSnapshot.val().first;
+    var frequency = childSnapshot.val().freq;
+
+    //console log information to make sure it displays correctly
+    console.log(trainName);
+    console.log(destination);
+    console.log(firstTrain);
+    console.log(frequency);
+
+    var tableRow = $("<tr>").addClass("ml-4");
+
+        // Assumptions
+        //var tFrequency = 
+
+        // Time is 3:30 AM
+        //var firstTime = "03:30";
+
+        // First Time (pushed back 1 year to make sure it comes before current time)
+        var firstTimeConverted = moment(firstTrain, "HH:mm").subtract(1, "years");
+        console.log(firstTimeConverted);
+
+        // Current Time
+        var currentTime = moment();
+        console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
+
+        // Difference between the times
+        var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+        console.log("DIFFERENCE IN TIME: " + diffTime);
+
+        // Time apart (remainder)
+        var tRemainder = diffTime % frequency;
+        console.log(tRemainder);
+
+        // Minute Until Train
+        var tMinutesTillTrain = frequency - tRemainder;
+        console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
+
+        // Next Train
+        var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+        console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
+    
+    var tdTrainName = $("<td>").text(trainName);
+    var tdDestination = $("<td>").text(destination);
+    var tdFrequency = $("<td>").text(frequency);
+    var tdNextArrival = $("<td>").text(moment(nextTrain).format("hh:mm A"));
+    var tdMinsAway = $("<td>").text(tMinutesTillTrain);
+    var removeButton = $("<button>");
+    removeButton.text("Delete");
+    removeButton.addClass("bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded");
+    var tdRemove = $("<td>").append(removeButton);
+
+    tableRow.append(tdTrainName);
+    tableRow.append(tdDestination);
+    tableRow.append(tdFrequency);
+    tableRow.append(tdNextArrival);
+    tableRow.append(tdMinsAway);
+    tableRow.append(tdRemove);
+
+    $("#tableBody").append(tableRow);
+
+    setInterval(function()
+    {
+        // Difference between the times
+        var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+
+        // Time apart (remainder)
+        var tRemainder = diffTime % frequency;
+
+        // Minute Until Train
+        var tMinutesTillTrain = frequency - tRemainder;
+
+        // Next Train
+        var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+
+        tdNextArrival.text(moment(nextTrain).format("hh:mm A"));
+        console.log(moment(nextTrain).format("hh:mm A"));
+
+        tdMinsAway.text(tMinutesTillTrain)  
+
+        
+    }, 1000);
+
+    removeButton.on("click", function (event)
+    {
+        tableRow.remove();
+        var ref = firebase.database().ref("trainAssignment/" + childKey);
+        ref.remove();
+    });
+
+});
