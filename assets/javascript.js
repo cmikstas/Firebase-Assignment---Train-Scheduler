@@ -18,7 +18,6 @@ var database = firebase.database();
 $( document ).ready(function()
 {
     submitBtn();
-
 });
 
 // code for grabbing information from button click
@@ -27,6 +26,17 @@ function submitBtn()
     $("#submit-btn").on("click", function (event)
     {   
         event.preventDefault();
+
+        // resets border color in all user entry fields
+        $("#trainName").removeClass("border-red-500 bg-red-100");
+        $("#destination").removeClass("border-red-500 bg-red-100");
+        $("#firstTrainTime").removeClass("border-red-500 bg-red-100");
+        $("#frequency").removeClass("border-red-500 bg-red-100");
+
+        $("#trainName").addClass("border-blue-500 bg-gray-200");
+        $("#destination").addClass("border-blue-500 bg-gray-200");
+        $("#firstTrainTime").addClass("border-blue-500 bg-gray-200");
+        $("#frequency").addClass("border-blue-500 bg-gray-200");
 
         // Grabs inputs from fields
         var trainName = $("#trainName").val().trim();
@@ -138,17 +148,6 @@ function submitBtn()
 database.ref("trainAssignment").on("child_added", function(childSnapshot)
 {
     console.log(childSnapshot.val());
-
-    // resets border color in all user entry fields
-    $("#trainName").removeClass("border-red-500 bg-red-100");
-    $("#destination").removeClass("border-red-500 bg-red-100");
-    $("#firstTrainTime").removeClass("border-red-500 bg-red-100");
-    $("#frequency").removeClass("border-red-500 bg-red-100");
-
-    $("#trainName").addClass("border-blue-500 bg-gray-200");
-    $("#destination").addClass("border-blue-500 bg-gray-200");
-    $("#firstTrainTime").addClass("border-blue-500 bg-gray-200");
-    $("#frequency").addClass("border-blue-500 bg-gray-200");
 
     var childKey = childSnapshot.key;
 
