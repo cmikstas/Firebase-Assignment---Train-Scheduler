@@ -1,5 +1,5 @@
 
-//code for loading Firebase
+// code for loading Firebase
 var firebaseConfig =
 {
   apiKey: "AIzaSyCZmpMUDLA55Li2JKm8K42Jv_gCAG_v5Lg",
@@ -48,12 +48,14 @@ $( document ).ready(function()
       //);
 //});
 
-//code for grabbing information from button click
+// code for grabbing information from button click
 function submitBtn()
 {
     $("#submit-btn").on("click", function (event)
     {   
         event.preventDefault();
+
+        // resets border color in first train time field
         $("#firstTrainTime").addClass("border-blue-500");
         $("#firstTrainTime").addClass("bg-gray-200");
 
@@ -63,8 +65,10 @@ function submitBtn()
         var firstTrain = $("#firstTrainTime").val().trim();
         var frequency = $("#frequency").val().trim();
 
+        // section to handles all error checking to make sure proper formatting is done in first train time field
         var timeArray = firstTrain.split(":"); 
 
+        // makes sure that train time is proper length
         if (timeArray.length !== 2)
         {
             console.log("must have two #s in xx:xx format")
@@ -75,12 +79,15 @@ function submitBtn()
             return;
         }
 
+        // variables with text information from field converted to integers
         var milHours = parseInt(timeArray[0]);
         var milMins = parseInt(timeArray[1]);
 
+        // function to make sure that only integers are entered time fields
         if (isNaN(milHours) || isNaN(milMins))
         {
             console.log("Not a number");
+            // changes border colors to let user know there is an error in the field
             $("#firstTrainTime").removeClass("border-blue-500");
             $("#firstTrainTime").removeClass("bg-gray-200");
             $("#firstTrainTime").addClass("border-red-500");
@@ -88,6 +95,7 @@ function submitBtn()
             return;
         }
 
+        // error checking to make sure proper number formatting is done in both fields
         if (milHours > 23 || milHours < 0 || milMins > 59 || milMins < 0)
         {
             console.log("Number format incorrect");
